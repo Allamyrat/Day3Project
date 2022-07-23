@@ -1,10 +1,9 @@
-package com.cybertek.rebootcamp;
-
-import org.junit.Test;
+import org.junit.*;
+import org.testng.annotations.Test;
 
 import java.sql.*;
 
-public class JDBC_Test {
+class JDBC_Test {
 
     private static final String DB_URL =  "jdbc:oracle:thin:@52.91.128.79:1521:xe";
     private static final String DB_USER = "hr";
@@ -86,26 +85,6 @@ public class JDBC_Test {
         connection.close();
 
 
-    }
-
-    @Test
-    public void metaDataTest() throws Exception {
-        //try with resources
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM employees")) {
-
-
-            DatabaseMetaData databaseMetaData = connection.getMetaData();//database properties, not data itself
-            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();//result set properties, not a data itself
-
-            while (resultSet.next()) {
-                for (int columnIndex = 1; columnIndex <= resultSetMetaData.getColumnCount(); columnIndex++) {
-                    System.out.print(resultSet.getObject(columnIndex) + " ");
-                }
-                System.out.println();
-            }
-        }
     }
 
 }
